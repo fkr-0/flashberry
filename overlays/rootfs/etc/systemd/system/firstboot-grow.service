@@ -1,0 +1,11 @@
+[Unit]
+Description=Grow root filesystem on first boot
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'growpart /dev/mmcblk0 2 && resize2fs /dev/mmcblk0p2'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
