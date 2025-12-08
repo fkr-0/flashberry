@@ -1,0 +1,20 @@
+FROM debian:bookworm
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    mmdebstrap debootstrap \
+    qemu-user-static binfmt-support \
+    gnupg ca-certificates curl \
+    fdisk parted kpartx kmod \
+    dosfstools e2fsprogs mtools \
+    rsync gdisk udev udevil arch-test \
+    xz-utils zstd pv bc coreutils \
+    systemd-sysv python3-pretty-yaml \
+    locales tzdata gpg \
+ && rm -rf /var/lib/apt/lists/*
+
+# Enable binfmt handlers inside the container (best effort)
+RUN update-binfmts --enable || true
+
+WORKDIR /work

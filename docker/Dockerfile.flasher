@@ -1,0 +1,7 @@
+FROM debian:bookworm
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    coreutils util-linux pv xz-utils zstd \
+ && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /work
